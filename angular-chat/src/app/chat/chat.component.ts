@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../http.service';
+import { MessageWSService } from '../message-ws.service';
 import { User } from '../user';
 import { Message } from '../message';
 
@@ -16,7 +17,11 @@ export class ChatComponent {
 
   selectedUser: User = null;
 
-  constructor(private router: Router, private httpService: HttpService) {
+  constructor(
+    private router: Router,
+    private httpService: HttpService,
+    private messageWsService: MessageWSService
+  ) {
     if (!httpService.isLogin) {
       this.router.navigate(['/login']);
     }
@@ -24,6 +29,12 @@ export class ChatComponent {
 
   ngOnInit() {
     this.reloadUsers();
+    this.messageWsService.onAnotherUserConneted.subscribe(() =>
+      this.reloadUsers()
+    );
+    this.messageWsService.onMessage.subscribe(() =>
+      this.getMessagesWithSelectedUser()
+    );
   }
 
   getMyId() {
@@ -31,7 +42,7 @@ export class ChatComponent {
   }
 
   sendMessage(e: string) {
-    console.log(new Message(this.selectedUser.user_id, e))
+    console.log(new Message(this.selectedUser.user_id, e));
     this.httpService
       .sendMessages(new Message(this.selectedUser.user_id, e))
       .subscribe(
@@ -46,7 +57,7 @@ export class ChatComponent {
   reloadUsers() {
     this.httpService.getUsers().subscribe(
       (data) => {
-        console.log(data)
+        console.log(data);
         if ('data' in data) {
           console.log('data');
           if (Array.isArray((data as any)['data'])) {

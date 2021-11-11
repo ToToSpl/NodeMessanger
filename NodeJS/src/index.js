@@ -172,7 +172,7 @@ const main = async () => {
         .then(() => {
           const ws = onlineUsers.get(msg_id);
           if (ws) {
-            ws.send(JSON.stringify(messageBody));
+            ws.send(JSON.stringify({ status: 1, msg: messageBody }));
           }
           res.status(200).send("ok");
         })
@@ -200,7 +200,7 @@ const main = async () => {
         },
       })
         .then((msgs) => {
-          res.status(200).json({data: msgs}).send();
+          res.status(200).json({ data: msgs }).send();
         })
         .catch((e) => {
           res.status(400).json(e).send();

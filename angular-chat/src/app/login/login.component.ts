@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpService } from '../http.service';
+import { MessageWSService } from '../message-ws.service';
 import { User } from '../user';
 
 @Component({
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private messageWsService: MessageWSService
   ) {
     if (httpService.isLogin) {
       this.router.navigate(['/']);
@@ -72,6 +74,7 @@ export class LoginComponent implements OnInit {
                 (data as any)['user_name'],
                 ''
               );
+              this.messageWsService.open();
               this.router.navigate(['/']);
             } else {
               this.loading = false;
