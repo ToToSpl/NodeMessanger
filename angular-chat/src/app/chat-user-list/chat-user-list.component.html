@@ -1,4 +1,4 @@
 <!-- Displaying the list of users-->
 <div *ngFor="let user of users" (click)="userClicked.emit(user)">
-    {{user.user_id}} {{user.user_name}} {{user.online}}
+    Nick: {{user.user_name}} is online: {{user.online}}
 </div>

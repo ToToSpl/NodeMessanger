@@ -200,7 +200,7 @@ const main = async () => {
         },
       })
         .then((msgs) => {
-          res.status(200).json(msgs).send();
+          res.status(200).json({data: msgs}).send();
         })
         .catch((e) => {
           res.status(400).json(e).send();

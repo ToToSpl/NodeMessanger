@@ -1,4 +1,4 @@
 <input type="text" [(ngModel)]="message" (keyup.enter)="sendMessage()">
 <!-- TODO: Add a call to the sending function 
      message to the event about pressing the button-->
-<button type="button">Send</button>
+<button type="button" (click)="sendMessage()">Send</button>
