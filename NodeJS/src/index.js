@@ -64,8 +64,8 @@ const main = async () => {
   //REGISTER FEATURE
   app.post("/api/register", async (req, res) => {
     // check req body
-    const name = req.body.name;
-    const pswd = req.body.pswd;
+    const name = req.body.user_name;
+    const pswd = req.body.user_password;
     if (!name || !pswd) {
       res.status(400).send({ register: false });
       return;

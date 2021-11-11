@@ -1,0 +1,37 @@
+<h2>Login</h2>
+<!-- Displaying errors from the server if the list is not empty-->
+<div *ngIf="serverErrors && serverErrors.length > 0" >
+    <div *ngFor="let err of serverErrors">
+        {{err}}
+    </div>
+</div>
+
+<!-- creating a form, a form should be assigned to the formGroup field, which allows for passing data from the view to the form object from the component -->
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+        <label for="user_name">Username</label>
+        <input type="text" formControlName="user_name" />
+        <!-- Checking for errors -->
+        <!-- Displaying errors returned by validator-->
+        <div *ngIf="submitted && formControls['user_name']!.errors">
+            <div *ngIf="formControls['user_name']!.errors['required']">Username is required</div>
+            <div *ngIf="formControls['user_name']!.errors['minlength']">Username must be at least 3 characters</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="user_password">Password</label>
+        <input type="password" formControlName="user_password"/>
+        <!-- Checking for errors -->
+        <!-- Displaying errors returned by validator-->
+        <div *ngIf="submitted && formControls['user_password']!.errors">
+            <div *ngIf="formControls['user_password']!.errors['required']">Password is required</div>
+            <div *ngIf="formControls['user_password']!.errors['minlength']">Password must be at least 3 characters</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <!-- Angular introduces many additional fields and modifies html fields - so that they can be accessed via databinding -->
+        <button [disabled]="loading">Login</button>
+        <!-- Go to login -->
+        <a routerLink="/login">Cancel</a>
+    </div>
+</form>
