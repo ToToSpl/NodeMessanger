@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { User } from './user';
 import { Message } from './message';
 
-const URL = 'http://localhost:8080/api';
+// const URL = 'http://localhost:8080/api';
+const URL = '/api'
 
 @Injectable({
   providedIn: 'root',

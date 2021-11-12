@@ -26,8 +26,8 @@ export class MessageWSService {
   open() {
     const self = this;
 
-    this.ws = new WebSocket(`ws://localhost:8080`);
-    // this.ws = new WebSocket(`ws://${location.host}/stream/`);
+    // this.ws = new WebSocket(`ws://localhost:8080`);
+    this.ws = new WebSocket(`ws://${location.host}/stream/`);
 
     this.ws.onerror = function () {
       console.log('WebSocket error');
